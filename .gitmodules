@@ -1,0 +1,3 @@
+[submodule "csc_task5_sub"]
+	path = csc_task5_sub
+	url = https://github.com/IsaiahAng/csc_task5.git
