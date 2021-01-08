@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>NEA Weather Service</title>
+</head>
+<body>
+    <div>
+        <h1> Test </h1>
+        <button onclick="redirect()"> Call the weather service through back-end services (C#) </button>
+        <div id="loading"></div>
+        <div id="element"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let endpoint = 'https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date_time=2020-11-28T09%3A09%3A10'
+            $.ajax({
+                type: 'GET',
+                url: endpoint,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (result, status, xhr) {
+                    console.log(result);
+                    $(element).after(
+                        '<h3> API Link: ' + endpoint + '</h3>' +
+                        '<h3> Status: ' + status + '</h3>' + 
+                        '<h4> General Forecast: ' + result["items"][0]["general"]["forecast"] + '</h4> \n' +
+                        '<h4> Relative Humidity: ' + result["items"][0]["general"]["relative_humidity"]["low"] + ' - ' +
+                        result["items"][0]["general"]["relative_humidity"]["high"] + '</h4> \n' +
+                        '<h4> Temperature: ' + result["items"][0]["general"]["temperature"]["low"] + 
+                        '°C - ' + result["items"][0]["general"]["temperature"]["high"] + "°C </h4>"
+                    )
+                }
+            })
+        })
+
+        function redirect() {
+            window.location.href = 'http://localhost:50861/BackendWeatherService.aspx'
+        }
+    </script>
+</body>
+</html>
